@@ -1,6 +1,6 @@
-package ${packageName}.model.dto.${dataKey};
+package com.duan.congmingyu.model.dto.question;
 
-import ${packageName}.common.PageRequest;
+import com.duan.congmingyu.common.PageRequest;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,13 +8,13 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 查询${dataName}请求
+ * 查询题目请求
  *
 
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ${upperDataKey}QueryRequest extends PageRequest implements Serializable {
+public class QuestionQueryRequest extends PageRequest implements Serializable {
 
     /**
      * id
