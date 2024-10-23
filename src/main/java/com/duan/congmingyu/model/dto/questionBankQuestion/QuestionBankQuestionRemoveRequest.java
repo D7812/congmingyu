@@ -3,21 +3,12 @@ package com.duan.congmingyu.model.dto.questionBankQuestion;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
- * 更新题库题目关联请求
- *
-
+ * 移除题目题库关系请求
  */
 @Data
-public class QuestionBankQuestionUpdateRequest implements Serializable {
-
-    /**
-     * id
-     */
-    private Long id;
-
+public class QuestionBankQuestionRemoveRequest implements Serializable {
     /**
      * 题库 id
      */
