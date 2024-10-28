@@ -18,6 +18,7 @@ import com.duan.congmingyu.model.entity.Question;
 import com.duan.congmingyu.model.entity.QuestionBank;
 import com.duan.congmingyu.model.entity.User;
 import com.duan.congmingyu.model.vo.QuestionBankVO;
+import com.duan.congmingyu.model.vo.QuestionVO;
 import com.duan.congmingyu.service.QuestionBankService;
 import com.duan.congmingyu.service.QuestionService;
 import com.duan.congmingyu.service.UserService;
@@ -145,17 +146,19 @@ public class QuestionBankController {
         // 查询数据库
         QuestionBank questionBank = questionBankService.getById(id);
         ThrowUtils.throwIf(questionBank == null, ErrorCode.NOT_FOUND_ERROR);
-        //查询题库封装类
+        // 查询题库封装类
         QuestionBankVO questionBankVO = questionBankService.getQuestionBankVO(questionBank, request);
-        //是否要关联查询题库下的题目列表
+        // 是否要关联查询题库下的题目列表
         boolean needQueryQuestionList = questionBankQueryRequest.isNeedQueryQuestionList();
         if (needQueryQuestionList) {
-           QuestionQueryRequest questionQueryRequest = new QuestionQueryRequest();
-           questionQueryRequest.setQuestionBankId(id);
-           Page<Question> questionPage = questionService.listQuestionByPage(questionQueryRequest);
-           questionBankVO.setQuestionPage(questionPage);
-
-
+            QuestionQueryRequest questionQueryRequest = new QuestionQueryRequest();
+            questionQueryRequest.setQuestionBankId(id);
+            // 可以按需支持更多的题目搜索参数，比如分页
+            questionQueryRequest.setPageSize(questionBankQueryRequest.getPageSize());
+            questionQueryRequest.setCurrent(questionBankQueryRequest.getCurrent());
+            Page<Question> questionPage = questionService.listQuestionByPage(questionQueryRequest);
+            Page<QuestionVO> questionVOPage = questionService.getQuestionVOPage(questionPage, request);
+            questionBankVO.setQuestionPage(questionVOPage);
         }
         // 获取封装类
         return ResultUtils.success(questionBankVO);
@@ -191,7 +194,7 @@ public class QuestionBankController {
         long current = questionBankQueryRequest.getCurrent();
         long size = questionBankQueryRequest.getPageSize();
         // 限制爬虫
-        ThrowUtils.throwIf(size > 20, ErrorCode.PARAMS_ERROR);
+        ThrowUtils.throwIf(size > 200, ErrorCode.PARAMS_ERROR);
         // 查询数据库
         Page<QuestionBank> questionBankPage = questionBankService.page(new Page<>(current, size),
                 questionBankService.getQueryWrapper(questionBankQueryRequest));
