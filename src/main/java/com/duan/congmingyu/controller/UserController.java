@@ -10,22 +10,11 @@ import com.duan.congmingyu.config.WxOpenConfig;
 import com.duan.congmingyu.constant.UserConstant;
 import com.duan.congmingyu.exception.BusinessException;
 import com.duan.congmingyu.exception.ThrowUtils;
-import com.duan.congmingyu.model.dto.user.UserAddRequest;
-import com.duan.congmingyu.model.dto.user.UserLoginRequest;
-import com.duan.congmingyu.model.dto.user.UserQueryRequest;
-import com.duan.congmingyu.model.dto.user.UserRegisterRequest;
-import com.duan.congmingyu.model.dto.user.UserUpdateMyRequest;
-import com.duan.congmingyu.model.dto.user.UserUpdateRequest;
+import com.duan.congmingyu.model.dto.user.*;
 import com.duan.congmingyu.model.entity.User;
 import com.duan.congmingyu.model.vo.LoginUserVO;
 import com.duan.congmingyu.model.vo.UserVO;
 import com.duan.congmingyu.service.UserService;
-
-import java.util.List;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import me.chanjar.weixin.common.bean.oauth2.WxOAuth2AccessToken;
@@ -33,12 +22,12 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.DigestUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 import static com.duan.congmingyu.service.impl.UserServiceImpl.SALT;
 
@@ -316,4 +305,34 @@ public class UserController {
         ThrowUtils.throwIf(!result, ErrorCode.OPERATION_ERROR);
         return ResultUtils.success(true);
     }
+
+    /**
+     * 添加用户签到记录
+     *
+     * @param request
+     * @return 当前是否签到成功
+     */
+    @PostMapping("/add/sign_in")
+    public BaseResponse<Boolean> addUserSignIn(HttpServletRequest request) {
+       // 必须要登录才能签到
+        User loginUser = userService.getLoginUser(request);
+        boolean result = userService.addUserSignIn(loginUser.getId());
+        return ResultUtils.success(result);
+    }
+
+    /**
+     * 获取用户签到记录
+     *
+     * @param year    年份（为空表示当前年份）
+     * @param request
+     * @return 签到记录映射
+     */
+    @GetMapping("/get/sign_in")
+    public BaseResponse<List<Integer>> getUserSignInRecord(Integer year, HttpServletRequest request) {
+        // 必须要登录才能获取
+        User loginUser = userService.getLoginUser(request);
+        List<Integer> userSignInRecord = userService.getUserSignInRecord(loginUser.getId(), year);
+        return ResultUtils.success(userSignInRecord);
+    }
 }
+
