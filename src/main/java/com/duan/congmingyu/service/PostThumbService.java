@@ -1,7 +1,7 @@
 package com.duan.congmingyu.service;
 
-import com.duan.congmingyu.model.entity.PostThumb;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.duan.congmingyu.model.entity.PostThumb;
 import com.duan.congmingyu.model.entity.User;
 
 /**

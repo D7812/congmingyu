@@ -3,11 +3,11 @@ package com.duan.congmingyu.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.duan.congmingyu.common.ErrorCode;
 import com.duan.congmingyu.constant.CommonConstant;
 import com.duan.congmingyu.constant.RedisConstant;
 import com.duan.congmingyu.constant.UserConstant;
 import com.duan.congmingyu.exception.BusinessException;
-import com.duan.congmingyu.common.ErrorCode;
 import com.duan.congmingyu.mapper.UserMapper;
 import com.duan.congmingyu.model.dto.user.UserQueryRequest;
 import com.duan.congmingyu.model.entity.User;
@@ -16,13 +16,6 @@ import com.duan.congmingyu.model.vo.LoginUserVO;
 import com.duan.congmingyu.model.vo.UserVO;
 import com.duan.congmingyu.service.UserService;
 import com.duan.congmingyu.utils.SqlUtils;
-
-import java.time.LocalDate;
-import java.time.Year;
-import java.util.*;
-import java.util.stream.Collectors;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.bean.WxOAuth2UserInfo;
 import org.apache.commons.lang3.StringUtils;
@@ -31,6 +24,14 @@ import org.redisson.api.RedissonClient;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.BitSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 用户服务实现

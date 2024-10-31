@@ -1,12 +1,13 @@
 package com.duan.congmingyu.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.duan.congmingyu.exception.BusinessException;
-import com.duan.congmingyu.exception.ThrowUtils;
 import com.duan.congmingyu.common.ErrorCode;
 import com.duan.congmingyu.constant.CommonConstant;
+import com.duan.congmingyu.exception.BusinessException;
+import com.duan.congmingyu.exception.ThrowUtils;
 import com.duan.congmingyu.mapper.PostFavourMapper;
 import com.duan.congmingyu.mapper.PostMapper;
 import com.duan.congmingyu.mapper.PostThumbMapper;
@@ -21,16 +22,7 @@ import com.duan.congmingyu.model.vo.UserVO;
 import com.duan.congmingyu.service.PostService;
 import com.duan.congmingyu.service.UserService;
 import com.duan.congmingyu.utils.SqlUtils;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import cn.hutool.core.collection.CollUtil;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -45,6 +37,11 @@ import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 帖子服务实现

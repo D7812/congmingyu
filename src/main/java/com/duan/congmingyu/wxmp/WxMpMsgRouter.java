@@ -3,14 +3,14 @@ package com.duan.congmingyu.wxmp;
 import com.duan.congmingyu.wxmp.handler.EventHandler;
 import com.duan.congmingyu.wxmp.handler.MessageHandler;
 import com.duan.congmingyu.wxmp.handler.SubscribeHandler;
-
-import javax.annotation.Resource;
 import me.chanjar.weixin.common.api.WxConsts.EventType;
 import me.chanjar.weixin.common.api.WxConsts.XmlMsgType;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.Resource;
 
 /**
  * 微信公众号路由

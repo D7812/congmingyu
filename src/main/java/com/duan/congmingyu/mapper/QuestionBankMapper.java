@@ -1,7 +1,7 @@
 package com.duan.congmingyu.mapper;
 
-import com.duan.congmingyu.model.entity.QuestionBank;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.duan.congmingyu.model.entity.QuestionBank;
 
 /**
 * @author dell

@@ -3,7 +3,6 @@ package com.duan.congmingyu.model.dto.questionBank;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 编辑题库请求

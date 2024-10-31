@@ -1,7 +1,7 @@
 package com.duan.congmingyu.mapper;
 
-import com.duan.congmingyu.model.entity.PostThumb;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.duan.congmingyu.model.entity.PostThumb;
 
 /**
  * 帖子点赞数据库操作
