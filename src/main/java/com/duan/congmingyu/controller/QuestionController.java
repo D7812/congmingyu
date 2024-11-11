@@ -10,10 +10,7 @@ import com.duan.congmingyu.common.ResultUtils;
 import com.duan.congmingyu.constant.UserConstant;
 import com.duan.congmingyu.exception.BusinessException;
 import com.duan.congmingyu.exception.ThrowUtils;
-import com.duan.congmingyu.model.dto.question.QuestionAddRequest;
-import com.duan.congmingyu.model.dto.question.QuestionEditRequest;
-import com.duan.congmingyu.model.dto.question.QuestionQueryRequest;
-import com.duan.congmingyu.model.dto.question.QuestionUpdateRequest;
+import com.duan.congmingyu.model.dto.question.*;
 import com.duan.congmingyu.model.entity.Question;
 import com.duan.congmingyu.model.entity.User;
 import com.duan.congmingyu.model.vo.QuestionVO;
@@ -260,4 +257,11 @@ public class QuestionController {
         return ResultUtils.success(questionService.getQuestionVOPage(questionPage, request));
     }
 
+    @PostMapping("/delete/batch")
+    @AuthCheck(mustRole = UserConstant.ADMIN_ROLE)
+    public BaseResponse<Boolean> batchDeleteQuestions(@RequestBody QuestionBatchDeleteRequest questionBatchDeleteRequest) {
+        ThrowUtils.throwIf(questionBatchDeleteRequest == null, ErrorCode.PARAMS_ERROR);
+        questionService.batchDeleteQuestions(questionBatchDeleteRequest.getQuestionIdList());
+        return ResultUtils.success(true);
+    }
 }
